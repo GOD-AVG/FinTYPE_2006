@@ -102,17 +102,17 @@ document.addEventListener('DOMContentLoaded', () => {
         // Show game over screen
         finalScoreDisplay.textContent = `Your score: ${score}`;
         gameOverScreen.style.display = 'flex';
+        gameContainer.classList.remove('focused');
     }
     
     // Handle keyboard input
-    document.addEventListener('keydown', (e) => {
+    keyboardInput.addEventListener('keydown', (e) => {
         if (!gameActive || !currentMole) return;
         
         const pressedKey = e.key.toUpperCase();
         const moleLetter = currentMole.textContent;
         
         if (pressedKey === moleLetter) {
-
             // Correct key pressed
             currentMole.classList.remove('up');
             currentMole = null;
@@ -163,6 +163,15 @@ document.addEventListener('DOMContentLoaded', () => {
     gameContainer.addEventListener('touchstart', () => {
         if (gameActive) {
             keyboardInput.focus();
+            gameContainer.classList.add('focused');
+        }
+    });
+    
+    // Refocus input if focus is lost
+    keyboardInput.addEventListener('blur', () => {
+        if (gameActive) {
+            setTimeout(() => keyboardInput.focus(), 0);
+            gameContainer.classList.add('focused');
         }
     });
     
@@ -180,6 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Focus input for mobile keyboard
         keyboardInput.focus();
+        gameContainer.classList.add('focused');
         
         // Hide all moles at start
         moles.forEach(mole => mole.classList.remove('up'));
