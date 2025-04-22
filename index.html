@@ -39,6 +39,10 @@
             max-height: 90vh; /* Ensure visibility above mobile keyboard */
         }
         
+        #game-container.focused {
+            border: 2px solid #4fc3f7; /* Visual focus indicator for debugging */
+        }
+        
         h1 {
             font-size: 2.5rem;
             margin-bottom: 10px;
@@ -136,6 +140,7 @@
             opacity: 0;
             width: 1px;
             height: 1px;
+            z-index: -1; /* Ensure it doesn't interfere */
         }
         
         /* Stars background */
@@ -261,8 +266,8 @@
     </div>
     
     <!-- Main game container -->
-    <div id="game-container" tabindex="0">
-        <input id="keyboard-input" type="text" aria-hidden="true">
+    <div id="game-container">
+        <input id="keyboard-input" type="text" aria-hidden="true" autofocus>
         <h1>Galaxy Whack-a-Mole</h1>
         <div id="score-display">Score: 0</div>
         <div id="mole-field"></div>
